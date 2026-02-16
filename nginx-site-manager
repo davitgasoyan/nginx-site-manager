@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+
+SITES_AVAILABLE="/etc/nginx/sites-available"
+SITES_ENABLED="/etc/nginx/sites-enabled"
+
+while true; do
+    clear
+    echo "======================================="
+    echo "              NGINX Sites              "
+    echo "        select number to toggle        "
+    echo "======================================="
+
+    # Display numbered list
+    i=1
+    declare -A site_map
+
+    for site in $(ls -1 "$SITES_AVAILABLE" | sort); do
+        site_map[$i]="$site"
+
+        if [ -L "${SITES_ENABLED}/$site" ]; then
+            echo -e "\033[32m[$i] ● $site\033[0m"
+        else
+            echo -e "\033[31m[$i] ○ $site\033[0m"
+        fi
+        ((i++))
+    done
+
+    echo "======================================="
+    echo "[r] Reload NGINX  [q] Quit"
+    echo "======================================="
+    echo -n "Choice: "
+    read choice
+
+    case $choice in
+        [0-9]*)
+            site="${site_map[$choice]}"
+            if [ -n "$site" ]; then
+                if [ -L "${SITES_ENABLED}/$site" ]; then
+                    sudo rm "${SITES_ENABLED}/$site"
+                    echo "Disabled $site"
+                else
+                    sudo ln -s "${SITES_AVAILABLE}/$site" "${SITES_ENABLED}/$site"
+                    echo "Enabled $site"
+                fi
+                sleep 1
+            fi
+            ;;
+        r)
+            echo "Reloading NGINX..."
+            sudo nginx -t && sudo systemctl reload nginx
+            sleep 1
+            ;;
+        q)
+            echo "Exiting"
+            exit 0
+            ;;
+    esac
+done
