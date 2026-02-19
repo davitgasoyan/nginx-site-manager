@@ -63,6 +63,4 @@ Choice:
 
 ## Usage
 
-Enter a number → Toggle site state
-`r` → Test configuration and reload NGINX
-`q` → Exit program
+Enter a number → Toggle site state, `r` → Test configuration and reload NGINX, `q` → Exit program
