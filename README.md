@@ -30,8 +30,11 @@ sudo cp nginx-site-manager /usr/local/bin/nginx-site-manager
 
 ```bash
 sudo /usr/local/bin/nginx-site-manager
+```
 
+## Example interface
 
+```bash
 =======================================
               NGINX Sites              
         select number to toggle        
@@ -49,5 +52,11 @@ sudo /usr/local/bin/nginx-site-manager
 [r] Reload NGINX  [q] Quit
 =======================================
 Choice: 
+```
 
+## Legend
 
+| Symbol | Meaning |
+| --- | --- |
+| ● | Site enabled |
+| ○ | Site disabled |
