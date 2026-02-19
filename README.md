@@ -58,5 +58,5 @@ Choice:
 
 | Symbol | Meaning |
 | --- | --- |
-| ● | Site enabled |
-| ○ | Site disabled |
+|● | Site enabled |
+|○ | Site disabled |
